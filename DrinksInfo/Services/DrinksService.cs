@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using DrinksInfo.Models;
+using System.Web;
 
 namespace DrinksInfo.Services;
 
@@ -42,6 +43,45 @@ public class DrinksService
         {
             Console.WriteLine("An error occurred: " + ex.Message);
             return new List<DrinkCategory>();
+        }
+    }
+
+    public List<Drink> GetDrinksByCategory(string category)
+    {
+        var client = new RestClient("https://www.thecocktaildb.com/api/json/v1/1/");
+        var request = new RestRequest($"filter.php?c={HttpUtility.UrlEncode(category)}", Method.Get);
+
+        try
+        {
+            var response = client.Execute(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string rawResponse = response.Content;
+                var seriliaze = JsonConvert.DeserializeObject<Drinks>(rawResponse);
+
+                if (seriliaze != null && seriliaze.drinks != null)
+                {
+                    List<Drink> drinks = seriliaze.drinks;
+                    return drinks;
+
+                }
+                else
+                {
+                    Console.WriteLine("No categories found or bad JSON format.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Error: " + response.StatusCode);
+            }
+
+            return new List<Drink>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred: " + ex.Message);
+            return new List<Drink>();
         }
     }
 }

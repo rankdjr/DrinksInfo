@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,21 +9,14 @@ namespace DrinksInfo.Services;
 
 internal class InputValidator
 {
-    public static string GetInput(string message)
+    public static string ValidateString(string input)
     {
-        Console.Write($"{message}:\t");
-        return Console.ReadLine();
-    }
+        while (string.IsNullOrWhiteSpace(input))
+        {
+            Console.Write($"String cannot be empty or Null.\nPlease enter a valid string:\t");
+            input = Console.ReadLine();
+        };
 
-    public static int GetIntInput(string message)
-    {
-        Console.Write($"{message}:\t");
-        return int.Parse(Console.ReadLine());
-    }
-
-    public static double GetDoubleInput(string message)
-    {
-        Console.Write($"{message}:\t");
-        return double.Parse(Console.ReadLine());
+        return input;
     }
 }

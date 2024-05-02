@@ -9,10 +9,13 @@ namespace DrinksInfo.Services;
 public class InputHandler
 {
     DrinksService drinksService = new DrinksService();
+
     public string GetInput(string message)
     {
         Console.Write($"{message}:\t");
-        return Console.ReadLine();
+        var input = Console.ReadLine();
+        input = InputValidator.ValidateString(input);
+        return input;
     }
 
     public int GetIntInput(string message)
