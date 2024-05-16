@@ -9,14 +9,32 @@ namespace DrinksInfo.Services;
 
 internal class InputValidator
 {
-    public static string ValidateString(string input)
+    public static string ValidateString()
     {
-        while (string.IsNullOrWhiteSpace(input))
+        Console.Write("Please enter a valid string: ");
+
+        string input;
+
+        while (string.IsNullOrWhiteSpace(input = Console.ReadLine()))
         {
-            Console.Write($"String cannot be empty or Null.\nPlease enter a valid string:\t");
-            input = Console.ReadLine();
-        };
+            Console.Write("String cannot be empty. Please re-enter: ");
+        }
 
         return input;
     }
+
+    public static int ValidateInteger()
+    {
+        Console.Write("Please enter a valid integer: ");
+
+        int result;
+
+        while (!int.TryParse(Console.ReadLine(), out result))
+        {
+            Console.Write("Invalid input. Please enter a valid integer: ");
+        }
+
+        return result;
+    }
+
 }
