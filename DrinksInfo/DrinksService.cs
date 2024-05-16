@@ -16,10 +16,10 @@ public class DrinksService
 
         if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            string rawResponse = response.Result.Content;
-            var serialize = JsonConvert.DeserializeObject<Categories>(rawResponse);
+            string? rawResponse = response.Result.Content;
+            var serialize = JsonConvert.DeserializeObject<Categories>(rawResponse!);
 
-            categories = serialize.CategoriesList;
+            categories = serialize!.CategoriesList!;
             TableVisualisationEngine.ShowTable(categories, "Categories Menu");
             return categories;
         }
@@ -38,11 +38,11 @@ public class DrinksService
 
         if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            string rawResponse = response.Result.Content;
+            string rawResponse = response.Result.Content!;
 
             var serialize = JsonConvert.DeserializeObject<Drinks>(rawResponse);
 
-            drinks = serialize.DrinksList;
+            drinks = serialize!.DrinksList!;
 
             TableVisualisationEngine.ShowTable(drinks, "Drinks Menu");
 
@@ -62,11 +62,11 @@ public class DrinksService
 
         if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
         {
-            string rawResponse = response.Result.Content;
+            string rawResponse = response.Result.Content!;
 
             var serialize = JsonConvert.DeserializeObject<DrinkDetailObject>(rawResponse);
 
-            List<DrinkDetail> returnedList = serialize.DrinkDetailList;
+            List<DrinkDetail> returnedList = serialize!.DrinkDetailList;
 
             DrinkDetail drinkDetail = returnedList[0];
 
