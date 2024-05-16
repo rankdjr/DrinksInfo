@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace DrinksInfo.Models;
+
+public class Drinks
+{
+    [JsonProperty("drinks")]
+    public List<Drink> DrinksList { get; set; }
+}
 
 public class Drink
 {
